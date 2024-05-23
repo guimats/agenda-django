@@ -103,6 +103,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+senhas.txt
 
 # mkdocs documentation
 /site
