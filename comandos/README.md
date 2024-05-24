@@ -26,6 +26,7 @@ Migrando a base de dados do Django
 ```
 python manage.py makemigrations
 python manage.py migrate
+pip install pillow  <!-- para conseguir utilizar imagens (pictures) -->
 ```
 
 Criando e modificando a senha de um super usuário Django
