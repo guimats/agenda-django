@@ -20,4 +20,4 @@ class ContactAdmin(admin.ModelAdmin):
     # torna o dado editavel diretamente pelo display
     list_editable = 'first_name', 'last_name'
     # seleciona qual campo ficara com o link para acesso do cadastro
-    list_display_links = 'phone',
+    list_display_links = 'phone', 'id',
