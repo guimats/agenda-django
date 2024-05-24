@@ -1,5 +1,5 @@
 from django.contrib import admin  # type: ignore
-from contact.models import Contact
+from contact.models import Contact, Category
 
 
 # Cadastrando o model 'Contact'
@@ -21,3 +21,9 @@ class ContactAdmin(admin.ModelAdmin):
     list_editable = 'first_name', 'last_name'
     # seleciona qual campo ficara com o link para acesso do cadastro
     list_display_links = 'phone', 'id',
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    ordering = '-id',
+    list_display = 'name',
