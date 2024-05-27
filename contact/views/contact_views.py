@@ -2,15 +2,21 @@ from django.shortcuts import render, get_object_or_404, redirect  # type:ignore
 # importando os contatos para exibir na tela
 from contact.models import Contact
 from django.db.models import Q  # type:ignore
+from django.core.paginator import Paginator  # type:ignore
 
 
 def index(request):
     # puxando todos os contatos registrados no Contact (filtrando pelo show)
-    contacts = Contact.objects.filter(show=True).order_by('-id')[:10]
+    contacts = Contact.objects.filter(show=True).order_by('-id')
+
+    # Utilizando o metodo 'Paginator' para criar as páginas
+    paginator = Paginator(contacts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     # criando variavel com as informações dos contatos
     context = {
-        'contacts': contacts,
+        'page_obj': page_obj,
         'site_title': 'Contatos - '
     }
 
@@ -38,8 +44,13 @@ def search(request):
             ) \
         .order_by('-id')
 
+    # Utilizando o metodo 'Paginator' para criar as páginas
+    paginator = Paginator(contacts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'contacts': contacts,
+        'page_obj': page_obj,
         'site_title': 'Search - '
     }
 
