@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404  # type: ignore
+from django.shortcuts import render, get_object_or_404, redirect  # type:ignore
 # importando os contatos para exibir na tela
 from contact.models import Contact
-# from django.http import Http404  # type: ignore
+from django.db.models import Q  # type:ignore
 
 
 def index(request):
@@ -17,6 +17,34 @@ def index(request):
     return render(
         request, 'contact/index.html',
         # adicionando os contatos no return da view
+        context
+        )
+
+
+def search(request):
+    search_value = request.GET.get('q', '').strip()
+
+    if search_value == '':
+        return redirect('contact:index')
+
+    contacts = Contact.objects \
+        .filter(show=True) \
+        .filter(
+            # Q com o pipe '|' servem nesse caso como 'or'
+            Q(first_name__icontains=search_value) |
+            Q(last_name__icontains=search_value) |
+            Q(phone__icontains=search_value) |
+            Q(email__icontains=search_value)
+            ) \
+        .order_by('-id')
+
+    context = {
+        'contacts': contacts,
+        'site_title': 'Search - '
+    }
+
+    return render(
+        request, 'contact/index.html',
         context
         )
 
