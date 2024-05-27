@@ -5,6 +5,9 @@ from django.db.models import Q  # type:ignore
 
 
 def create(request):
+    if request.method == 'POST':
+        print(request.POST.get('first_name'))
+
     context = {
 
     }
