@@ -6,7 +6,7 @@ from contact.models import Contact, Category
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     # mostra as colunas informadas no display dos contacts
-    list_display = 'id', 'first_name', 'last_name', 'phone',
+    list_display = 'id', 'first_name', 'last_name', 'phone', 'show'
     # ordena pelo valor informado - sinal de negativo '-' torna descrescente
     ordering = '-id',
     # cria um filtro para a tabela exibida
@@ -18,7 +18,7 @@ class ContactAdmin(admin.ModelAdmin):
     # máximo de cadastro que pode ser exibidio no 'mostrar tudo'
     list_max_show_all = 100
     # torna o dado editavel diretamente pelo display
-    list_editable = 'first_name', 'last_name'
+    list_editable = 'first_name', 'last_name', 'show'
     # seleciona qual campo ficara com o link para acesso do cadastro
     list_display_links = 'phone', 'id',
 

@@ -4,8 +4,8 @@ from contact.models import Contact
 
 
 def index(request):
-    # puxando todos os contatos registrados no Contact
-    contacts = Contact.objects.all()
+    # puxando todos os contatos registrados no Contact (filtrando pelo show)
+    contacts = Contact.objects.filter(show=True).order_by('-id')[:10]
 
     # criando variavel com as informações dos contatos
     context = {
