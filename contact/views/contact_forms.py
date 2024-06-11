@@ -1,13 +1,22 @@
-from django.shortcuts import render  # type:ignore
+from django.shortcuts import render, redirect  # type:ignore
 
 from contact.forms import ContactForm
 
 
 def create(request):
     if request.method == 'POST':
+        form = ContactForm(request.POST)
         context = {
-            'form': ContactForm(request.POST)
+            'form': form
         }
+
+        # confirma se o formulário não tem erros para salvar
+        if form.is_valid():
+            # form.save() -> para salvar no banco de dados
+            # commit=False para não salvar direto
+            # contact = form.save(commit=False)
+            form.save()
+            return redirect('contact:create')
 
         return render(
             request,
