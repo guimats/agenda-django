@@ -1,5 +1,6 @@
 from django import forms  # type: ignore
 from django.core.exceptions import ValidationError  # type: ignore
+from django.contrib.auth.forms import UserCreationForm  # type: ignore
 from . import models
 
 
@@ -74,3 +75,7 @@ class ContactForm(forms.ModelForm):
                 )
             )
         return first_name
+
+
+class RegisterForm(UserCreationForm):
+    ...
